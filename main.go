@@ -3,12 +3,24 @@ package main
 import (
 	"fmt"
 	"simulador_cache/cache"
+
+	"github.com/fatih/color"
 )
 
 func main() {
-	// Testando o Cache FIFO de nível 1 com métricas
-	fmt.Println("Testing FIFO Cache with Metrics:")
 
+	// Cores
+	cyan := color.New(color.FgCyan).SprintFunc()
+	green := color.New(color.FgGreen).SprintFunc()
+	yellow := color.New(color.FgYellow).SprintFunc()
+
+	// Cabeçalho
+	fmt.Println(cyan("====================================="))
+	fmt.Println(cyan("          TESTING CACHE SYSTEM      "))
+	fmt.Println(cyan("====================================="))
+
+	// Testando o Cache FIFO de nível 1 com métricas
+	fmt.Println("\n", yellow("Testing FIFO Cache with Metrics:"))
 	fifoCache := cache.NewFIFO(3)
 
 	fifoCache.Put(1, 10)
@@ -22,8 +34,7 @@ func main() {
 	fifoCache.ShowMetrics()
 
 	// Testando o Cache LRU de nível 1 com métricas
-	fmt.Println("\nTesting LRU Cache with Metrics:")
-
+	fmt.Println("\n", yellow("Testing LRU Cache with Metrics:"))
 	lruCache := cache.NewLRU(3)
 
 	lruCache.Put(1, 10)
@@ -37,8 +48,7 @@ func main() {
 	lruCache.ShowMetrics()
 
 	// Testando o Cache de múltiplos níveis (L1 e L2) com métricas
-	fmt.Println("\nTesting Multi-Level Cache with Metrics:")
-
+	fmt.Println("\n", yellow("Testing Multi-Level Cache with Metrics:"))
 	multiCache := cache.NewMultiLevelCache(3, 3)
 
 	multiCache.Put(1, 10)
@@ -49,4 +59,9 @@ func main() {
 	multiCache.Get(2)
 	multiCache.Put(4, 40)
 	multiCache.Display()
+
+	// Mensagem final
+	fmt.Println("\n", green("====================================="))
+	fmt.Println(green("Cache system tests completed!"))
+	fmt.Println(green("====================================="))
 }
