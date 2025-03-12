@@ -5,11 +5,11 @@ function fetchMetrics() {
     fetch('/metrics')
         .then(response => response.json())
         .then(data => {
-            // Atualiza os gráficos
+            
             updateChart('l1-chart', data.l1);
             updateChart('l2-chart', data.l2);
 
-            // Atualiza o status do cache
+          
             updateCacheStatus(data);
         });
 }
