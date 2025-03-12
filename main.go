@@ -1,14 +1,36 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"net/http"
 	"simulador_cache/cache"
 
 	"github.com/fatih/color"
 )
 
-func main() {
+var metricsL1 = cache.NewMetrics()
+var metricsL2 = cache.NewMetrics()
 
+// Função para exibir as métricas em formato JSON via HTTP
+func getMetrics(w http.ResponseWriter, r *http.Request) {
+	data := map[string]interface{}{
+		"l1": map[string]int{
+			"hits":   metricsL1.HitCount,
+			"misses": metricsL1.MissCount,
+		},
+		"l2": map[string]int{
+			"hits":   metricsL2.HitCount,
+			"misses": metricsL2.MissCount,
+		},
+	}
+	// Responde com os dados em JSON
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(data)
+}
+
+// Função principal que executa o teste do cache e o servidor web
+func main() {
 	// Cores
 	cyan := color.New(color.FgCyan).SprintFunc()
 	green := color.New(color.FgGreen).SprintFunc()
@@ -64,4 +86,12 @@ func main() {
 	fmt.Println("\n", green("====================================="))
 	fmt.Println(green("Cache system tests completed!"))
 	fmt.Println(green("====================================="))
+
+	// Inicia o servidor web para o dashboard
+	http.Handle("/", http.FileServer(http.Dir("./web"))) // Serve arquivos estáticos da pasta web
+	http.HandleFunc("/metrics", getMetrics)              // Endpoint para métricas de cache
+
+	// Inicia o servidor na porta 8080
+	fmt.Println("Server started at http://localhost:8080")
+	http.ListenAndServe(":8080", nil)
 }

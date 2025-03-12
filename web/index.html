@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cache Metrics Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Cache Metrics Dashboard</h1>
+            <p>Monitor the performance of L1 and L2 caches with real-time metrics.</p>
+        </header>
+
+        <section class="charts">
+            <div class="chart-container">
+                <h2>L1 Cache Metrics</h2>
+                <canvas id="l1-chart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2>L2 Cache Metrics</h2>
+                <canvas id="l2-chart"></canvas>
+            </div>
+        </section>
+
+        <section class="cache-status" id="cache-status">
+            <h2>Cache Status</h2>
+            <div class="status">
+                <p><strong>L1 Cache:</strong> Hits: 0, Misses: 0</p>
+                <p><strong>L2 Cache:</strong> Hits: 0, Misses: 0</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
