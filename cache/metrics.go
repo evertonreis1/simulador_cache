@@ -19,7 +19,6 @@ func (metrics *CacheMetrics) ShowMetrics() {
 	metrics.MissRate = float64(metrics.Misses) / float64(metrics.TotalGets) * 100
 	metrics.RemovalRate = float64(metrics.Removals) / float64(metrics.TotalGets) * 100
 
-	// Exibe as métricas
 	fmt.Println("Metrics:")
 	fmt.Printf("Hit Rate: %.2f%%\n", metrics.HitRate)
 	fmt.Printf("Miss Rate: %.2f%%\n", metrics.MissRate)

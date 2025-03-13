@@ -1,4 +1,3 @@
-// Atualizar as métricas a cada 3 segundos
 setInterval(fetchMetrics, 3000);
 
 function fetchMetrics() {
