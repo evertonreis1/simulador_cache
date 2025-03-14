@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"simulador_cache/cache"
+	"time"
 
 	"github.com/fatih/color"
 )
@@ -88,6 +89,27 @@ func main() {
 	multiCache.Get(2)
 	multiCache.Put(4, 40)
 	multiCache.Display()
+
+	// ===========================
+	// Testando Cache TTL
+	// ===========================
+	fmt.Println("\n", yellow("Testing TTL Cache with Expiration:"))
+	ttlCache := cache.NewTTLCache(3)
+
+	ttlCache.Put(1, 10, 3*time.Second)
+	ttlCache.Put(2, 20, 5*time.Second)
+	ttlCache.Put(3, 30, 1*time.Second)
+
+	fmt.Println("\nInitial TTL Cache State:")
+	ttlCache.Display()
+
+	time.Sleep(2 * time.Second)
+	fmt.Println("\nAfter 2 seconds:")
+	ttlCache.Display()
+
+	time.Sleep(3 * time.Second)
+	fmt.Println("\nAfter 5 seconds (some items should be expired):")
+	ttlCache.Display()
 
 	fmt.Println("\n", green("====================================="))
 	fmt.Println(green("Cache system tests completed!"))
